@@ -1,0 +1,143 @@
+{
+  "projekt": "Warsztat Samochodowy",
+  "aktorzy": ["Klient", "Biuro", "Mechanik", "Magazynier"],
+  "wymagania_funkcjonalne": [
+    {
+      "id": "UID-1",
+      "aktor": "Biuro",
+      "wspoldziala": ["Klient"],
+      "historia": "Jako pracownik biura chcę zarejestrować zlecenie przyjęte od klienta, aby mechanik miał komplet danych do diagnozy usterki.",
+      "kryteria_akceptacji": [
+        "GIVEN pracownik biura przyjmuje auto od klienta WHEN wprowadzi dane kontaktowe klienta (telefon lub e-mail), dane samochodu i opis usterki THEN system zapisze zlecenie ze statusem „Przyjęte” i nada mu unikalny numer.",
+        "GIVEN pracownik biura wypełnia formularz zlecenia WHEN pozostawi puste któreś pole obowiązkowe THEN system nie zapisze zlecenia i wyświetli komunikat przy każdym brakującym polu."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Zdarzenie „Oddaje auto” + zadanie „Przyjmij zlecenie”"
+    },
+    {
+      "id": "UID-2",
+      "aktor": "Mechanik",
+      "wspoldziala": [],
+      "historia": "Jako mechanik chcę zapisać wynik diagnozy w zleceniu, aby biuro mogło przygotować wycenę naprawy.",
+      "kryteria_akceptacji": [
+        "GIVEN istnieją zlecenia o statusie „Przyjęte” WHEN mechanik otworzy listę zleceń do diagnozy THEN system wyświetli je wraz z danymi pojazdu i opisem usterki.",
+        "GIVEN mechanik wykonał diagnozę WHEN wpisze opis stwierdzonych usterek, listę potrzebnych części i szacowany czas pracy THEN system zapisze wynik i zmieni status zlecenia na „Zdiagnozowane”.",
+        "GIVEN mechanik zapisuje diagnozę WHEN pozostawi puste pole opisu usterek THEN system nie zapisze diagnozy i wyświetli komunikat o brakujących danych."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Zadanie „Diagnoza”"
+    },
+    {
+      "id": "UID-3",
+      "aktor": "Biuro",
+      "wspoldziala": ["Klient"],
+      "historia": "Jako pracownik biura chcę przygotować wycenę i wysłać ją klientowi SMS-em lub e-mailem, aby klient mógł zdecydować o naprawie.",
+      "kryteria_akceptacji": [
+        "GIVEN zlecenie ma status „Zdiagnozowane” WHEN pracownik biura zatwierdzi wycenę (koszt części i robocizny) THEN system wyśle wycenę na numer telefonu lub adres e-mail klienta i zmieni status na „Wycena wysłana”.",
+        "GIVEN wycena została wysłana WHEN wysyłka się powiedzie THEN system zapisze datę i godzinę wysyłki w historii zlecenia.",
+        "GIVEN system wysyła wycenę WHEN wysyłka zakończy się błędem THEN system wyświetli pracownikowi biura komunikat o błędzie i umożliwi ponowienie wysyłki."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Zadanie usługowe „Wycenia i wysyła SMS/e-mail”"
+    },
+    {
+      "id": "UID-4",
+      "aktor": "Klient",
+      "wspoldziala": ["Biuro"],
+      "historia": "Jako klient chcę zaakceptować wycenę naprawy, aby warsztat rozpoczął naprawę mojego auta.",
+      "kryteria_akceptacji": [
+        "GIVEN klient otrzymał wycenę WHEN potwierdzi akceptację (pracownik biura zarejestruje decyzję w systemie) THEN system zmieni status zlecenia na „Zaakceptowane” i udostępni zlecenie mechanikowi do zgłoszenia części.",
+        "GIVEN zlecenie ma status „Zaakceptowane” WHEN zmieni się status THEN system zapisze datę i godzinę decyzji klienta w historii zlecenia."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Bramka „Akceptuje?” (gałąź Tak)"
+    },
+    {
+      "id": "UID-5",
+      "aktor": "Klient",
+      "wspoldziala": ["Biuro"],
+      "historia": "Jako klient chcę odrzucić wycenę i anulować zlecenie, aby nie ponosić kosztów naprawy, na którą się nie zgadzam.",
+      "kryteria_akceptacji": [
+        "GIVEN klient otrzymał wycenę WHEN odrzuci ją THEN system zmieni status zlecenia na „Anulowane” i zakończy proces naprawy.",
+        "GIVEN zlecenie ma status „Anulowane” WHEN pracownik biura otworzy zlecenie THEN system wyświetli informację, że auto jest do odbioru bez naprawy, a edycja diagnozy i wyceny będzie zablokowana.",
+        "GIVEN zlecenie zostało anulowane WHEN mechanik lub magazynier otworzy listę swoich zleceń THEN anulowane zlecenie nie pojawi się na liście zleceń do realizacji."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Bramka „Akceptuje?” (gałąź Nie) + zdarzenie „Anulowanie"
+    },
+    {
+      "id": "UID-6",
+      "aktor": "Mechanik",
+      "wspoldziala": ["Magazynier"],
+      "historia": "Jako mechanik chcę zgłosić części potrzebne do naprawy, aby magazynier mógł je przygotować lub zamówić.",
+      "kryteria_akceptacji": [
+        "GIVEN zlecenie ma status „Zaakceptowane” WHEN mechanik wybierze części z katalogu i poda ich ilość THEN system utworzy zgłoszenie części powiązane ze zleceniem i przekaże je magazynierowi.",
+        "GIVEN mechanik tworzy zgłoszenie części WHEN poda ilość mniejszą lub równą zero THEN system odrzuci pozycję i wyświetli komunikat o niepoprawnej ilości."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Zadanie „Zgłoś części"
+    },
+    {
+      "id": "UID-7",
+      "aktor": "Magazynier",
+      "wspoldziala": ["Mechanik"],
+      "historia": "Jako magazynier chcę sprawdzić dostępność zgłoszonych części i wydać je mechanikowi, aby naprawa mogła zostać wykonana bez zbędnej zwłoki.",
+      "kryteria_akceptacji": [
+        "GIVEN magazynier otrzymał zgłoszenie części WHEN je otworzy THEN system wyświetli dla każdej pozycji aktualny stan magazynowy i oznaczy, czy część jest dostępna.",
+        "GIVEN wszystkie zgłoszone części są na stanie WHEN magazynier potwierdzi ich wydanie THEN system zmniejszy stan magazynowy o wydane ilości, zapisze wydanie w zleceniu i powiadomi mechanika.",
+        "GIVEN magazynier potwierdza wydanie części WHEN stan magazynowy jest mniejszy niż żądana ilość THEN system zablokuje wydanie i wyświetli komunikat o niewystarczającym stanie."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Bramka „Na stanie?” (gałąź Tak) + zadanie „Wydaj część"
+    },
+    {
+      "id": "UID-8",
+      "aktor": "Magazynier",
+      "wspoldziala": ["Mechanik"],
+      "historia": "Jako magazynier chcę zarejestrować zamówienie brakującej części i przyjęcie dostawy, aby części trafiły do mechanika, gdy tylko będą dostępne.",
+      "kryteria_akceptacji": [
+        "GIVEN część nie jest dostępna na stanie WHEN magazynier zarejestruje zamówienie części u dostawcy THEN system zmieni status zlecenia na „Oczekuje na części” i zapisze dane zamówienia (dostawca, data, przewidywany termin dostawy).",
+        "GIVEN zamówienie części jest w realizacji WHEN magazynier zarejestruje przyjęcie dostawy THEN system zwiększy stan magazynowy o przyjęte ilości i umożliwi wydanie części mechanikowi.",
+        "GIVEN magazynier rejestruje przyjęcie dostawy WHEN dostarczona ilość jest mniejsza niż zamówiona THEN system oznaczy zamówienie jako „Dostarczone częściowo” i pozostawi zlecenie w statusie „Oczekuje na części”."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Bramka „Na stanie?” (gałąź Nie) + zadanie „Zamów część, przyjmij dostawę”"
+    },
+    {
+      "id": "UID-9",
+      "aktor": "Mechanik",
+      "wspoldziala": [],
+      "historia": "Jako mechanik chcę oznaczyć wykonanie naprawy w zleceniu, aby biuro mogło poinformować klienta o gotowości auta.",
+      "kryteria_akceptacji": [
+        "GIVEN mechanik otrzymał wydane części WHEN rozpocznie naprawę THEN system zmieni status zlecenia na „W naprawie”.",
+        "GIVEN zlecenie ma status „W naprawie” WHEN mechanik zakończy naprawę i potwierdzi to w systemie THEN system zmieni status na „Naprawa wykonana” i powiadomi biuro."
+      ],
+      "moscow": "Must",
+      "element_procesu": "Zadanie „Wykonaj naprawę"
+    },
+    {
+      "id": "UID-10",
+      "aktor": "Biuro",
+      "wspoldziala": ["Klient"],
+      "historia": "Jako pracownik biura chcę wysłać klientowi SMS lub e-mail o gotowości auta, aby klient wiedział, że może je odebrać.",
+      "kryteria_akceptacji": [
+        "GIVEN zlecenie ma status „Naprawa wykonana” WHEN pracownik biura potwierdzi wysyłkę powiadomienia THEN system wyśle SMS lub e-mail do klienta i zmieni status na „Gotowe do odbioru”.",
+        "GIVEN system wysyła powiadomienie WHEN wysyłka zakończy się błędem THEN system wyświetli komunikat o błędzie i umożliwi ponowienie wysyłki."
+      ],
+      "moscow": "Should",
+      "element_procesu": "Zadanie usługowe „Auto gotowe: SMS/e-mail"
+    },
+    {
+      "id": "UID-11",
+      "aktor": "Biuro",
+      "wspoldziala": ["Klient"],
+      "historia": "Jako pracownik biura chcę zarejestrować odbiór auta przez klienta, aby zamknąć zlecenie.",
+      "kryteria_akceptacji": [
+        "GIVEN zlecenie ma status „Gotowe do odbioru” lub „Anulowane” WHEN klient odbierze auto, a pracownik biura potwierdzi odbiór THEN system zmieni status zlecenia na „Zakończone” i zapisze datę odbioru.",
+        "GIVEN zlecenie ma status „Zakończone” WHEN użytkownik spróbuje je edytować THEN system zablokuje edycję i pozostawi zlecenie tylko do podglądu."
+      ],
+      "moscow": "Should",
+      "element_procesu": "Zdarzenie „Odbiera auto"
+    }
+  ]
+}
