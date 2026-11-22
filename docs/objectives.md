@@ -1,10 +1,13 @@
-Założenia projektu: Celem projektu jest obsługa średniej wielkości warsztatu samochodowego w sposób, który umożliwi sprawne zarządzanie i rejestrowanie napraw i usług serwisowych, zarządzanie częściami oraz informowanie klientów o statusie prac nad ich samochodem, tak aby usprawnić pracę warsztatu oraz zapewnić przejrzystość usług
+## Założenia projektu
+Celem projektu jest obsługa średniej wielkości warsztatu samochodowego w sposób, który umożliwi sprawne zarządzanie i rejestrowanie napraw i usług serwisowych, zarządzanie częściami oraz informowanie klientów o statusie prac nad ich samochodem, tak aby usprawnić pracę warsztatu oraz zapewnić przejrzystość usług
 
-Lista aktorów:
+### Lista aktorów
+**Aktorzy ludzcy:**
  - Klient warsztatu,
  - Mechanik,
  - Biuro warsztatu,
- - Magazynier,
- - Właściciel warsztatu,
+ - Magazynier.
+
+**Aktorzy systemowi:**
  - Usługa wysyłająca e-maile,
  - Usługa wysyłająca SMS.
