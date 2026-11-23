@@ -8,7 +8,7 @@ Uzasadnienie: Pozwala zrobić osobne widoki dla Biura, Mechanika i Magazyniera z
 
 ### Backend - Serwer aplikacji (API)  
 
-**Technologia: Node.js + Express (JavaScript) + TypeScript**  
+**Technologia: Node.js + Express (JavaScript)**  
 
 Uzasadnienie: Backend w JavaScripcie, tym samym języku co frontend, więc wszystko będzie w jednej technologii. 
 
@@ -16,7 +16,7 @@ Uzasadnienie: Backend w JavaScripcie, tym samym języku co frontend, więc wszys
 
 ### Baza danych  
 
-**Technologia: PostgreSQL **
+**Technologia: PostgreSQL**
 
 Uzasadnienie: Dane są relacyjne (klient – pojazd – zlecenie – części), a transakcje chronią stany magazynowe.  
 
@@ -24,7 +24,7 @@ Uzasadnienie: Dane są relacyjne (klient – pojazd – zlecenie – części), 
 
 ### Logowanie i role  
 
-**Technologia: JWT ** 
+**Technologia: JWT** 
 
 Uzasadnienie: Każda rola widzi tylko swoje funkcje. Klient się nie loguje, obsługuje go Biuro. 
 
