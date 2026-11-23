@@ -140,4 +140,129 @@
       "element_procesu": "Zdarzenie „Odbiera auto"
     }
   ]
+  {
+  
+  "wymagania_niefunkcjonalne": [
+    {
+      "id": "NFR-1",
+      "kategoria": "Wydajność",
+      "wymaganie": "Lista zleceń oraz szczegóły zlecenia ładują się w czasie nie dłuższym niż 2 sekundy dla 95% żądań przy 20 jednocześnie pracujących użytkownikach.",
+      "sposob_weryfikacji": "Test obciążeniowy (np. JMeter) na środowisku testowym.",
+      "moscow": "Must",
+      "powiazane_wymagania": ["UID-2", "UID-13"]
+    },
+    {
+      "id": "NFR-2",
+      "kategoria": "Wydajność",
+      "wymaganie": "Zapis zlecenia, diagnozy, wyceny lub zgłoszenia części trwa nie dłużej niż 3 sekundy dla 95% operacji.",
+      "sposob_weryfikacji": "Pomiar czasu odpowiedzi w logach aplikacji podczas testów.",
+      "moscow": "Should",
+      "powiazane_wymagania": ["UID-1", "UID-2", "UID-3", "UID-6"]
+    },
+    {
+      "id": "NFR-3",
+      "kategoria": "Wydajność",
+      "wymaganie": "Wiadomość SMS lub e-mail z wyceną albo informacją o gotowości auta jest przekazana do operatora/serwera pocztowego w czasie nie dłuższym niż 60 sekund od zatwierdzenia przez pracownika biura.",
+      "sposob_weryfikacji": "Test integracyjny z bramką SMS i serwerem poczty, pomiar czasu na podstawie logów.",
+      "moscow": "Should",
+      "powiazane_wymagania": ["UID-3", "UID-10"]
+    },
+    {
+      "id": "NFR-4",
+      "kategoria": "Bezpieczeństwo",
+      "wymaganie": "Dostęp do systemu wymaga uwierzytelnienia. Hasła są przechowywane wyłącznie w postaci zahaszowanej, a minimalna długość hasła wynosi 8 znaków.",
+      "sposob_weryfikacji": "Przegląd kodu i konfiguracji, test próby utworzenia słabego hasła.",
+      "moscow": "Must",
+      "powiazane_wymagania": ["UID-12"]
+    },
+    {
+      "id": "NFR-5",
+      "kategoria": "Bezpieczeństwo",
+      "wymaganie": "Komunikacja między przeglądarką a serwerem odbywa się wyłącznie przez HTTPS. Sesja użytkownika wygasa po 30 minutach bezczynności.",
+      "sposob_weryfikacji": "Skan konfiguracji TLS, test wygaśnięcia sesji.",
+      "moscow": "Must",
+      "powiazane_wymagania": ["UID-12"]
+    },
+    {
+      "id": "NFR-6",
+      "kategoria": "Bezpieczeństwo",
+      "wymaganie": "Uprawnienia są egzekwowane po stronie serwera zgodnie z rolami (Biuro, Mechanik, Magazynier): każda próba wywołania funkcji spoza roli kończy się odmową i zapisem w logu.",
+      "sposob_weryfikacji": "Testy uprawnień oraz przegląd logów.",
+      "moscow": "Must",
+      "powiazane_wymagania": ["UID-12"]
+    },
+    {
+      "id": "NFR-7",
+      "kategoria": "Zgodność prawna",
+      "wymaganie": "Dane osobowe klientów (imię, telefon, e-mail) są przetwarzane zgodnie z RODO: system umożliwia usunięcie lub anonimizację danych klienta na żądanie w ciągu 30 dni oraz przechowuje informację o zgodzie na kontakt SMS/e-mail.",
+      "sposob_weryfikacji": "Przegląd zgodności z RODO, test procedury usunięcia danych.",
+      "moscow": "Must",
+      "powiazane_wymagania": ["UID-1", "UID-3", "UID-10"]
+    },
+    {
+      "id": "NFR-8",
+      "kategoria": "Audytowalność",
+      "wymaganie": "Każda zmiana statusu zlecenia jest zapisywana wraz z datą, godziną i użytkownikiem, który ją wykonał. Historia jest przechowywana przez co najmniej 5 lat i nie może być edytowana.",
+      "sposob_weryfikacji": "Test zmiany statusu i kontrola wpisów w historii, próba edycji historii.",
+      "moscow": "Should",
+      "powiazane_wymagania": ["UID-4", "UID-5", "UID-9", "UID-11", "UID-13"]
+    },
+    {
+      "id": "NFR-9",
+      "kategoria": "Dostępność",
+      "wymaganie": "System jest dostępny co najmniej 99% czasu w godzinach pracy warsztatu (pon.–pt. 7:00–18:00, sob. 8:00–14:00) w skali miesiąca.",
+      "sposob_weryfikacji": "Monitoring dostępności (np. UptimeRobot) i raport miesięczny.",
+      "moscow": "Should",
+      "powiazane_wymagania": []
+    },
+    {
+      "id": "NFR-10",
+      "kategoria": "Niezawodność",
+      "wymaganie": "Kopia zapasowa bazy danych wykonywana jest raz na dobę, a odtworzenie danych z kopii trwa nie dłużej niż 4 godziny. Maksymalna utrata danych (RPO) wynosi 24 godziny.",
+      "sposob_weryfikacji": "Cykliczny test odtworzenia kopii na środowisku testowym.",
+      "moscow": "Must",
+      "powiazane_wymagania": []
+    },
+    {
+      "id": "NFR-11",
+      "kategoria": "Niezawodność",
+      "wymaganie": "W przypadku awarii wysyłki SMS lub e-mail system ponawia próbę automatycznie maksymalnie 3 razy w odstępach 5 minut, a po niepowodzeniu informuje pracownika biura.",
+      "sposob_weryfikacji": "Test integracyjny z symulowaną awarią bramki SMS/serwera poczty.",
+      "moscow": "Should",
+      "powiazane_wymagania": ["UID-3", "UID-10"]
+    },
+    {
+      "id": "NFR-12",
+      "kategoria": "Użyteczność",
+      "wymaganie": "Nowy pracownik biura po 30-minutowym szkoleniu rejestruje zlecenie w czasie nie dłuższym niż 3 minuty bez pomocy innej osoby.",
+      "sposob_weryfikacji": "Test z użytkownikami (min. 5 osób) z pomiarem czasu.",
+      "priorytet": "Should",
+      "powiazane_wymagania": ["UID-1"]
+    },
+    {
+      "id": "NFR-13",
+      "kategoria": "Użyteczność",
+      "wymaganie": "Komunikaty o błędach walidacji wskazują konkretne pole i przyczynę błędu w języku polskim. Interfejs jest dostępny w języku polskim.",
+      "sposob_weryfikacji": "Przegląd interfejsu i scenariuszy testowych walidacji.",
+      "moscow": "Should",
+      "powiazane_wymagania": ["UID-1", "UID-2", "UID-6"]
+    },
+    {
+      "id": "NFR-14",
+      "kategoria": "Kompatybilność",
+      "wymaganie": "System działa poprawnie w dwóch ostatnich wersjach przeglądarek Chrome, Firefox, Edge i Safari.",
+      "sposob_weryfikacji": "Testy manualne w przeglądarkach.",
+      "moscow": "Should",
+      "powiazane_wymagania": ["UID-2", "UID-6", "UID-7", "UID-9"]
+    },
+    {
+      "id": "NFR-15",
+      "kategoria": "Skalowalność",
+      "wymaganie": "Architektura pozwala obsłużyć trzykrotny wzrost liczby zleceń (do 300 miesięcznie) i 50 użytkowników bez przebudowy systemu i bez pogorszenia czasów z NFR-1.",
+      "sposob_weryfikacji": "Test obciążeniowy z danymi zwiększonymi trzykrotnie, przegląd architektury.",
+      "moscow": "Could",
+      "powiazane_wymagania": []
+    },
+  ]
+}
 }
