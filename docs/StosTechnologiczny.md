@@ -1,62 +1,62 @@
-##### Frontend - Interfejs użytkownika (aplikacja webowa) 
+### Frontend - Interfejs użytkownika (aplikacja webowa) 
 
-###### Technologia: React (JavaScript) + TypeScript  
+**Technologia: React (JavaScript) + TypeScript**  
 
 Uzasadnienie: Pozwala zrobić osobne widoki dla Biura, Mechanika i Magazyniera z tych samych komponentów (tabele, formularze). Działa w przeglądarce, więc nic nie trzeba instalować. 
 
 
 
-##### Backend - Serwer aplikacji (API)  
+### Backend - Serwer aplikacji (API)  
 
-###### Technologia: Node.js + Express (JavaScript) + TypeScript  
+**Technologia: Node.js + Express (JavaScript) + TypeScript**  
 
 Uzasadnienie: Backend w JavaScripcie, tym samym języku co frontend, więc wszystko będzie w jednej technologii. 
 
 
 
-##### Baza danych  
+### Baza danych  
 
-###### Technologia: PostgreSQL 
+**Technologia: PostgreSQL **
 
 Uzasadnienie: Dane są relacyjne (klient – pojazd – zlecenie – części), a transakcje chronią stany magazynowe.  
 
 
 
-##### Logowanie i role  
+### Logowanie i role  
 
-###### Technologia: JWT  
+**Technologia: JWT ** 
 
 Uzasadnienie: Każda rola widzi tylko swoje funkcje. Klient się nie loguje, obsługuje go Biuro. 
 
 
 
-##### Powiadomienia e-mail i SMS 
+### Powiadomienia e-mail i SMS 
 
-###### Technologia: Bramka SMS (np. SMSAPI) + Nodemailer (e-mail)  
+**Technologia: Bramka SMS (np. SMSAPI) + Nodemailer (e-mail)**  
 
 Uzasadnienie: Proste API, Moduł Powiadomienia wysyła klientowi wiadomość, np. gdy wycena jest gotowa. SMS na czas projektu może działać w trybie testowym.  
 
 
 
-##### Repozytorium i praca zespołowa  
+### Repozytorium i praca zespołowa  
 
-###### Technologia: Git + GitHub 
+**Technologia: Git + GitHub** 
 
 Uzasadnienie: Wymóg zadania: zmiany tylko przez pull request zaakceptowany przez inną osobę z zespołu.. 
 
 
 
-##### Diagramy  
+### Diagramy  
 
-###### Technologia: draw.io 
+**Technologia: draw.io** 
 
 Uzasadnienie: Plik źródłowy i eksport do PNG, zgodnie z wymaganiami. 
 
 
 
-##### Uruchamianie  
+### Uruchamianie  
 
-###### Docker Compose  
+**Docker Compose** 
 
 Uzasadnienie: Całe środowisko (API + baza) startuje jedną komendą. 
 
